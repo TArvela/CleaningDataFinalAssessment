@@ -1,8 +1,3 @@
----
-title: "R Notebook"
-output: html_notebook
----
-
 ##Data Acquisition
 Dataset download and unzip
 ```{r}
