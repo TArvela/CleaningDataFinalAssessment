@@ -1,4 +1,4 @@
-##Data Acquisition
+#Data Acquisition
 Dataset download and unzip
 <pre>
 zipname <- "getdata_dataset.zip"
@@ -13,7 +13,7 @@ if (!file.exists("UCI HAR Dataset")) {
 </pre>
 
 
-##Data reading
+#Data reading
 <pre>
 ## Read and import labels and features
 labels <- read.table("UCI HAR Dataset/activity_labels.txt")
@@ -34,7 +34,7 @@ subtest <- read.table("UCI HAR Dataset/test/subject_test.txt")
 </pre>
 
 
-##Merging of data to a single variable
+#Merging of data to a single variable
 <pre>
 ## Fuse all x data
 x <- rbind(xtest,xtrain)
@@ -53,7 +53,7 @@ tot <- cbind(x,y)
 tot <- cbind(tot,sub)
 </pre>
 
-##Define column names and merge data to obtain activity name for each row
+#Define column names and merge data to obtain activity name for each row
 <pre>
 ## Define names for columns (result to requirement 4.)
 colnames(tot)<-c(as.character(features[,2]),c("activity","SubjectID"))
@@ -62,21 +62,21 @@ colnames(tot)<-c(as.character(features[,2]),c("activity","SubjectID"))
 totMergedActivity <-merge(x=tot,y=labels, by.x="activity", by.y="V1")
 </pre>
 
-##Create variable containing only Mean or Std columns
+#Create variable containing only Mean or Std columns
 <pre>
 ## Define which columns are either means or std (requirement 2.)
 meanStdCol <- grep("mean|std", names(totMergedActivity))
 totMeanStd <- totMergedActivity[,meanStdCol]
 </pre>
 
-##Tidy data, grouped by SubjectID and activity
+#Tidy data, grouped by SubjectID and activity
 <pre>
 ## Create tidy data by grouping data by id and activity and averaging it (requirement .5)
 tidy <- aggregate(.~SubjectID+V2, totMergedActivity, mean)
 
 </pre>
 
-##Write Tidy data into file
+#Write Tidy data into file
 <pre>
 ## Write tidy data into file 
 write.table(tidy, file="tidy_mean.txt", row.names = FALSE)
